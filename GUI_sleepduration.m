@@ -52,7 +52,7 @@ function GUI_sleepduration_OpeningFcn(hObject, eventdata, handles, varargin)
 % varargin   command line arguments to GUI_sleepduration (see VARARGIN)
 
 % clear command line and workspace
-clc; close all; clear all;
+clc;
 
 % Choose default command line output for GUI_sleepduration
 handles.output = hObject;
