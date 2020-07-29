@@ -122,7 +122,6 @@ waitbar(1,status,'Done');
 axes(handles.MotionPlot);
 plot(motion);
 
-
 % --- Executes on button press in GetSleepDur.
 function GetSleepDur_Callback(hObject, eventdata, handles)
 % hObject    handle to GetSleepDur (see GCBO)
