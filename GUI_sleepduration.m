@@ -132,8 +132,8 @@ global folder;
 global motion;
 global threshold;
 global status;
-if ~isempty(status)
-  close(status);
+if ishandle(status)
+  delete(status);
 end
 threshold = str2double(get(handles.threshold, 'String'));
 sleepDur = length(find(motion < threshold))/60;
