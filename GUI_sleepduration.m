@@ -132,7 +132,9 @@ global folder;
 global motion;
 global threshold;
 global status;
-close(status);
+if ~isempty(status)
+  close(status);
+end
 threshold = str2double(get(handles.threshold, 'String'));
 sleepDur = length(find(motion < threshold))/60;
 disp(['Total Sleep Duration (min) ', num2str(sleepDur)]);
