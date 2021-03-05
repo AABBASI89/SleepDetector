@@ -52,7 +52,7 @@ function GUI_sleepduration_OpeningFcn(hObject, eventdata, handles, varargin)
 % varargin   command line arguments to GUI_sleepduration (see VARARGIN)
 
 % clear command line and workspace
-clc;
+clc; 
 
 % Choose default command line output for GUI_sleepduration
 handles.output = hObject;
@@ -95,19 +95,24 @@ global status;
 filepath = [folder, filename];
 
 % Create a progress bar
-status = waitbar(0,'Detecting motion...');
+status = waitbar(0,'Start...');
 
 % Read a video in an object
 vR = VideoReader(filepath);
-waitbar(0.01,status,'Detecting motion...');
+waitbar(0.01,status,'Start...');
 
 % Read all frames from the video object
-frames = read(vR);
-waitbar(0.01,status,'Detecting motion...');
+% frames = read(vR);
+k = 1;
+while hasFrame(vR)
+    frames(:,:,k) = squeeze(mean(readFrame(vR),3));
+    waitbar(0.00002*k,status,'Reading frames...');
+    k = k+1;
+end
 
 % Convert into greyscale
-frames = squeeze(mean(frames,3));
-waitbar(0.01,status,'Detecting motion...');
+% frames = squeeze(mean(frames,3));
+% waitbar(0.01,status,'Detecting motion...');
 
 % Detect motion  
 motion = zeros(1,size(frames,3)-1);
@@ -121,6 +126,7 @@ end
 waitbar(1,status,'Done');
 axes(handles.MotionPlot);
 plot(motion);
+clear frames;
 
 % --- Executes on button press in GetSleepDur.
 function GetSleepDur_Callback(hObject, eventdata, handles)
